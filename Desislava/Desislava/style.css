@@ -14,20 +14,28 @@ body {
     margin: 0; 
     background-color: var(--light); 
     color: var(--dark); 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+
 }
 
-/* Modern Sticky Navigation */
 nav { 
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    padding: 1.2rem; 
+    padding: 1rem 5%; 
     display: flex; 
-    justify-content: center; 
-    gap: 30px; 
+    justify-content: space-between; 
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px; 
 }
 
 nav a { 
@@ -42,37 +50,38 @@ nav a {
 
 nav a:hover { color: var(--primary); }
 
-/* Hero/Header Section */
+nav a.home-logo { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.4rem; 
+    color: var(--primary); 
+    text-transform: none;
+}
+
 header {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(rgba(0,0,0,0.02), rgba(0,0,0,0.05));
-    margin-bottom: 40px;
+    background: linear-gradient(rgba(0,0,0,0.01), rgba(0,0,0,0.03));
 }
 
-h1 { 
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem; 
-    margin: 0;
-    color: var(--dark);
-}
+h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0; }
 
-/* Recipe Grid */
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px 50px; }
-.recipe-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-    gap: 35px; 
+.container { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 20px 20px 50px; 
+    flex: 1; 
 }
+.recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 35px; }
 
-/* Elegant Cards */
 .card { 
     background: var(--white); 
     border-radius: 20px; 
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover { 
@@ -80,65 +89,126 @@ h1 {
     box-shadow: 0 15px 45px rgba(0,0,0,0.12);
 }
 
-/* Visual Placeholder for Image */
 .card-image {
-    height: 180px;
-    background: #eee;
-    background-image: linear-gradient(45deg, #f39c12, #e67e22);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 3rem;
+    height: 220px;
+    width: 100%;
+    background-color: #eee;
+    overflow: hidden; 
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.08); 
 }
 
 .card-body { padding: 25px; }
-
-.category-tag { 
-    color: var(--primary); 
-    font-weight: 600; 
-    font-size: 0.75rem; 
-    text-transform: uppercase; 
-}
-
+.category-tag { color: var(--primary); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
 .card h3 { margin: 10px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
 
-/* Buttons */
-.btn { 
-    cursor: pointer; 
-    border: none; 
-    border-radius: 12px; 
-    padding: 12px 20px; 
-    font-weight: 600; 
-    width: 100%; 
-    transition: 0.3s;
-    font-family: 'Poppins', sans-serif;
+.recipe-detail {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
 }
 
-.btn-view { background: var(--dark); color: white; margin-top: 15px; }
-.btn-view:hover { background: var(--primary); }
 
+.btn { cursor: pointer; border: none; border-radius: 12px; padding: 12px 20px; font-weight: 600; width: 100%; transition: 0.3s; font-family: inherit; }
 .btn-save { background: transparent; color: var(--dark); border: 1px solid #ddd; margin-top: 10px; }
 .btn-save:hover { border-color: var(--primary); color: var(--primary); }
 
-/* Forms */
-form { 
-    background: var(--white); 
-    padding: 40px; 
-    border-radius: 20px; 
-    box-shadow: var(--shadow); 
-    max-width: 500px; 
-    margin: 0 auto; 
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
 }
 
-input, select, textarea {
+input, select, textarea { 
+    width: 100%; padding: 15px; margin-bottom: 25px; border: 1px solid #eee; 
+    border-radius: 12px; background: #f9f9f9; font-family: inherit; box-sizing: border-box; 
+}
+
+.btn-submit { 
+    background: var(--primary); color: white; border: none; padding: 18px; 
+    border-radius: 12px; font-weight: 600; width: 100%; cursor: pointer; 
+}
+footer {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 60px 0 30px;
     width: 100%;
-    padding: 15px;
-    margin: 10px 0 25px;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    background: #f9f9f9;
-    font-family: inherit;
+    margin-top: auto; 
 }
 
-.btn-submit { background: var(--secondary); color: white; font-size: 1rem; }
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    color: var(--primary);
+    padding-left: 5px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    opacity: 0.5;
+}

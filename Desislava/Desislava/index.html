@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Culinary Hub | Home</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<html>
+<head><title>Culinary Hub | Home</title><link rel="stylesheet" href="style.css"></head>
 <body>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="traditional.html">Traditional</a>
-        <a href="vegan.html">Vegan</a>
-        <a href="dietary.html">Dietary</a>
-        <a href="add.html">Add Recipe</a>
-        <a href="save.html">Saved</a>
+        <a href="index.html" class="home-logo">Culinary Hub</a>
+        <div class="nav-links">
+            <a href="traditional.html">Traditional</a>
+            <a href="vegan.html">Vegan</a>
+            <a href="dietary.html">Dietary</a>
+            <a href="add.html">Add</a>
+            <a href="save.html">Saved</a>
+        </div>
     </nav>
-    <header>
-        <h1>The Flavor Gallery</h1>
-        <p>A collection of world-class recipes at your fingertips.</p>
-    </header>
-    <div class="container">
-        <div id="recipeGrid" class="recipe-grid"></div>
-    </div>
-    <script src="script.js"></script>
-    <script>renderRecipes('all');</script>
+    <header><h1>All Recipes</h1><p>Explore our full kitchen collection</p></header>
+    <div class="container"><div id="recipeGrid" class="recipe-grid"></div></div>
+    <footer>
+     <div class="footer-content">
+        <div class="footer-section">
+            <h2>Culinary Hub</h2>
+            <p>Your ultimate digital cookbook. We believe that cooking should be accessible, beautiful, and shared with the world.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add.html">Add New Recipe</a></li>
+                <li><a href="save.html">My Saved Collection</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Categories</h3>
+            <ul class="footer-links">
+                <li><a href="traditional.html">Traditional</a></li>
+                <li><a href="vegan.html">Vegan</a></li>
+                <li><a href="dietary.html">Dietary</a></li>
+            </ul>
+        </div>
+     </div>
+    
+     <div class="footer-bottom">
+        <p>&copy; 2026 Culinary Hub. Crafted with taste.</p>
+     </div>
+    </footer>
+    <script src="script.js"></script><script>displayRecipes('all');</script>
 </body>
 </html>

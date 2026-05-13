@@ -1,12 +1,36 @@
-// Initial sample data
 const defaultRecipes = [
-    { id: 1, title: "Spaghetti Carbonara", category: "traditional", instructions: "Boil pasta, fry guanciale, mix egg and cheese..." },
-    { id: 2, title: "Vegan Tacos", category: "vegan", instructions: "Use lentils or walnuts as meat substitute, add salsa..." },
-    { id: 3, title: "Low Carb Salad", category: "dietary", instructions: "Mix spinach, grilled chicken, and avocado..." }
+    { 
+        id: 1, 
+        title: "Spaghetti Carbonara", 
+        category: "traditional", 
+        image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&q=80&w=1000",
+        instructions: "Boil spaghetti. Crisp guanciale in a pan. Whisk eggs and pecorino romano. Toss pasta with meat, then remove from heat and stir in egg mixture quickly for a creamy finish." 
+    },
+    { 
+        id: 2, 
+        title: "Vegan Tacos", 
+        category: "vegan", 
+        image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&q=80&w=1000",
+        instructions: "Warm corn tortillas. Fill with seasoned black beans, avocado slices, pickled onions, and fresh cilantro. Squeeze lime over the top before serving." 
+    },
+    { 
+        id: 3, 
+        title: "Low Carb Salad", 
+        category: "dietary", 
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1000",
+        instructions: "Layer mixed greens, grilled chicken, halved cherry tomatoes, and sliced cucumber. Drizzle with olive oil and lemon juice." 
+    },
+    { 
+        id: 4, 
+        title: "Beef Stroganoff", 
+        category: "traditional", 
+        image: "https://cdn.pixabay.com/photo/2020/02/02/15/07/meat-4813261_1280.jpg",
+        instructions: "Sear beef strips. Sauté mushrooms and onions. Add beef broth and mustard. Stir in sour cream at the end and serve over egg noodles." 
+    }
 ];
 
-// Load recipes from local storage or use defaults
-let recipes = JSON.parse(localStorage.getItem('myRecipes')) || defaultRecipes;
+const STORAGE_KEY = 'myRecipes_v3';
+let recipes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultRecipes;
 let savedIds = JSON.parse(localStorage.getItem('savedRecipes')) || [];
 
 function displayRecipes(filter = 'all') {
@@ -14,18 +38,32 @@ function displayRecipes(filter = 'all') {
     if (!grid) return;
     grid.innerHTML = '';
 
-    const filtered = filter === 'all' ? recipes : recipes.filter(r => r.category === filter);
-    const savedList = filter === 'saved' ? recipes.filter(r => savedIds.includes(r.id)) : filtered;
+    let list = recipes;
+    if (filter === 'saved') {
+        list = recipes.filter(r => savedIds.includes(r.id));
+    } else if (filter !== 'all') {
+        list = recipes.filter(r => r.category === filter);
+    }
 
-    savedList.forEach(recipe => {
+    list.forEach(recipe => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.onclick = () => toggleRecipe(recipe.id);
+
         card.innerHTML = `
-            <h3>${recipe.title}</h3>
-            <span class="category-tag">${recipe.category}</span><br>
-            <button class="btn btn-view" onclick="toggleRecipe(${recipe.id})">View Recipe</button>
-            <button class="btn btn-save" onclick="saveRecipe(${recipe.id})">Save</button>
-            <div id="detail-${recipe.id}" class="recipe-detail">${recipe.instructions}</div>
+            <div class="card-image">
+                <img src="${recipe.image}" 
+                     alt="${recipe.title}" 
+                     onerror="this.src='https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000'">
+            </div>
+            <div class="card-body">
+                <span class="category-tag">${recipe.category}</span>
+                <h3>${recipe.title}</h3>
+                <div id="detail-${recipe.id}" class="recipe-detail">
+                    <strong>Instructions:</strong><br>${recipe.instructions}
+                </div>
+                <button class="btn btn-save" onclick="event.stopPropagation(); saveRecipe(${recipe.id})">♡ Save</button>
+            </div>
         `;
         grid.appendChild(card);
     });
@@ -33,14 +71,15 @@ function displayRecipes(filter = 'all') {
 
 function toggleRecipe(id) {
     const el = document.getElementById(`detail-${id}`);
-    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    const isVisible = el.style.display === 'block';
+    el.style.display = isVisible ? 'none' : 'block';
 }
 
 function saveRecipe(id) {
     if (!savedIds.includes(id)) {
         savedIds.push(id);
         localStorage.setItem('savedRecipes', JSON.stringify(savedIds));
-        alert("Recipe saved!");
+        alert("Added to your collection!");
     }
 }
 
@@ -50,9 +89,10 @@ function addRecipe(event) {
         id: Date.now(),
         title: document.getElementById('title').value,
         category: document.getElementById('category').value,
+        image: document.getElementById('imageUrl').value || "https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000",
         instructions: document.getElementById('instructions').value
     };
     recipes.push(newRecipe);
-    localStorage.setItem('myRecipes', JSON.stringify(recipes));
-    window.location.href = 'index.html'; // Redirect to home
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes)); 
+    window.location.href = 'index.html'; 
 }

@@ -2,27 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add New Recipe</title>
+    <title>Add Recipe | Culinary Hub</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav><a href="index.html">Home</a><a href="traditional.html">Traditional</a><a href="vegan.html">Vegan</a><a href="dietary.html">Dietary</a><a href="add.html">Add Recipe</a><a href="save.html">Saved</a></nav>
-    <header><h1>Share a Recipe</h1><p>Add your creation to the gallery.</p></header>
+    <nav>
+        <a href="index.html" class="home-logo">Culinary Hub</a>
+        <div class="nav-links">
+            <a href="traditional.html">Traditional</a>
+            <a href="vegan.html">Vegan</a>
+            <a href="dietary.html">Dietary</a>
+            <a href="add.html">Add</a>
+            <a href="save.html">Saved</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Share Your Creation</h1>
+        <p>Add a new recipe to the global collection.</p>
+    </header>
+
     <div class="container">
-        <form onsubmit="handleAddRecipe(event)">
-            <label>Recipe Name</label>
-            <input type="text" id="title" placeholder="e.g. Grandma's Pasta" required>
-            <label>Category</label>
-            <select id="category">
-                <option value="traditional">Traditional</option>
-                <option value="vegan">Vegan</option>
-                <option value="dietary">Dietary</option>
-            </select>
-            <label>Cooking Instructions</label>
-            <textarea id="instructions" rows="6" placeholder="Step-by-step instructions..." required></textarea>
-            <button type="submit" class="btn btn-submit">Publish Recipe</button>
-        </form>
+        <div class="form-container">
+            <form onsubmit="addRecipe(event)">
+                <label for="title">Recipe Title</label>
+                <input type="text" id="title" placeholder="e.g. Garlic Butter Shrimp" required>
+
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="traditional">Traditional</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="dietary">Dietary</option>
+                </select>
+
+                <label for="imageUrl">Image URL</label>
+                <input type="url" id="imageUrl" placeholder="Paste a link to a food photo...">
+
+                <label for="instructions">Instructions</label>
+                <textarea id="instructions" rows="6" placeholder="Step by step preparation..." required></textarea>
+
+                <button type="submit" class="btn-submit">Publish Recipe</button>
+            </form>
+        </div>
     </div>
+
+    <footer>
+     <div class="footer-content">
+        <div class="footer-section">
+            <h2>Culinary Hub</h2>
+            <p>Your ultimate digital cookbook. We believe that cooking should be accessible, beautiful, and shared with the world.</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add.html">Add New Recipe</a></li>
+                <li><a href="save.html">My Saved Collection</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Categories</h3>
+            <ul class="footer-links">
+                <li><a href="traditional.html">Traditional</a></li>
+                <li><a href="vegan.html">Vegan</a></li>
+                <li><a href="dietary.html">Dietary</a></li>
+            </ul>
+        </div>
+     </div>
+    
+     <div class="footer-bottom">
+        <p>&copy; 2026 Culinary Hub. Crafted with taste.</p>
+     </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
+
