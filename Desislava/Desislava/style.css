@@ -1,17 +1,144 @@
-body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f9f9f9; }
-nav { background: #333; padding: 1rem; display: flex; justify-content: center; gap: 15px; }
-nav a { color: white; text-decoration: none; font-weight: bold; }
-nav a:hover { color: #ff6347; }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap');
 
-.container { max-width: 900px; margin: 20px auto; padding: 20px; }
-.recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-.card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #ddd; }
-.card h3 { margin-top: 0; color: #333; }
-.category-tag { font-size: 0.8rem; color: #777; font-style: italic; }
+:root {
+    --primary: #e67e22;
+    --secondary: #27ae60;
+    --dark: #2c3e50;
+    --light: #fdfaf6;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 
-.btn { cursor: pointer; padding: 8px 12px; margin-top: 10px; border: none; border-radius: 4px; }
-.btn-save { background: #ffd700; }
-.btn-view { background: #4caf50; color: white; }
+body { 
+    font-family: 'Poppins', sans-serif; 
+    margin: 0; 
+    background-color: var(--light); 
+    color: var(--dark); 
+}
 
-.recipe-detail { display: none; margin-top: 10px; font-size: 0.9rem; background: #eee; padding: 10px; border-radius: 4px; }
-form input, form textarea, form select { width: 100%; margin-bottom: 10px; padding: 8px; }
+/* Modern Sticky Navigation */
+nav { 
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.2rem; 
+    display: flex; 
+    justify-content: center; 
+    gap: 30px; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+nav a { 
+    color: var(--dark); 
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s; 
+}
+
+nav a:hover { color: var(--primary); }
+
+/* Hero/Header Section */
+header {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(rgba(0,0,0,0.02), rgba(0,0,0,0.05));
+    margin-bottom: 40px;
+}
+
+h1 { 
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; 
+    margin: 0;
+    color: var(--dark);
+}
+
+/* Recipe Grid */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px 50px; }
+.recipe-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 35px; 
+}
+
+/* Elegant Cards */
+.card { 
+    background: var(--white); 
+    border-radius: 20px; 
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+}
+
+/* Visual Placeholder for Image */
+.card-image {
+    height: 180px;
+    background: #eee;
+    background-image: linear-gradient(45deg, #f39c12, #e67e22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.card-body { padding: 25px; }
+
+.category-tag { 
+    color: var(--primary); 
+    font-weight: 600; 
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+}
+
+.card h3 { margin: 10px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+
+/* Buttons */
+.btn { 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 12px; 
+    padding: 12px 20px; 
+    font-weight: 600; 
+    width: 100%; 
+    transition: 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-view { background: var(--dark); color: white; margin-top: 15px; }
+.btn-view:hover { background: var(--primary); }
+
+.btn-save { background: transparent; color: var(--dark); border: 1px solid #ddd; margin-top: 10px; }
+.btn-save:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Forms */
+form { 
+    background: var(--white); 
+    padding: 40px; 
+    border-radius: 20px; 
+    box-shadow: var(--shadow); 
+    max-width: 500px; 
+    margin: 0 auto; 
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0 25px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    background: #f9f9f9;
+    font-family: inherit;
+}
+
+.btn-submit { background: var(--secondary); color: white; font-size: 1rem; }
