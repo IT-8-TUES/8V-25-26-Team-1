@@ -29,6 +29,7 @@ const defaultRecipes = [
     }
 ];
 
+
 const STORAGE_KEY = 'myRecipes_v3';
 let recipes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || defaultRecipes;
 let savedIds = JSON.parse(localStorage.getItem('savedRecipes')) || [];
@@ -50,11 +51,12 @@ function displayRecipes(filter = 'all') {
         card.className = 'card';
         card.onclick = () => toggleRecipe(recipe.id);
 
+       
+        const isUserRecipe = recipe.id > 4;
+
         card.innerHTML = `
             <div class="card-image">
-                <img src="${recipe.image}" 
-                     alt="${recipe.title}" 
-                     onerror="this.src='https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000'">
+                <img src="${recipe.image}" alt="${recipe.title}" onerror="this.src='https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000'">
             </div>
             <div class="card-body">
                 <span class="category-tag">${recipe.category}</span>
@@ -62,7 +64,10 @@ function displayRecipes(filter = 'all') {
                 <div id="detail-${recipe.id}" class="recipe-detail">
                     <strong>Instructions:</strong><br>${recipe.instructions}
                 </div>
-                <button class="btn btn-save" onclick="event.stopPropagation(); saveRecipe(${recipe.id})">♡ Save</button>
+                <div class="card-buttons">
+                    <button class="btn btn-save" onclick="event.stopPropagation(); saveRecipe(${recipe.id})">♡ Save</button>
+                    ${isUserRecipe ? `<button class="btn btn-delete" onclick="event.stopPropagation(); deleteRecipe(${recipe.id})">Delete</button>` : ''}
+                </div>
             </div>
         `;
         grid.appendChild(card);
@@ -95,4 +100,74 @@ function addRecipe(event) {
     recipes.push(newRecipe);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes)); 
     window.location.href = 'index.html'; 
+}
+
+function deleteRecipe(id) {
+    if (confirm("Are you sure you want to delete this recipe?")) {
+        
+        recipes = recipes.filter(r => r.id !== id);
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+        
+        savedIds = savedIds.filter(savedId => savedId !== id);
+        localStorage.setItem('savedRecipes', JSON.stringify(savedIds));
+        
+        displayRecipes();
+    }
+}
+
+async function searchWebRecipes() {
+    const query = document.getElementById('externalSearch').value;
+    
+    const YOUR_API_KEY = "cdb3d45c4afb44fab3c8e38e679f136c"; 
+
+    if (!query) {
+        alert("Please enter a search term!");
+        return;
+    }
+
+    const grid = document.getElementById('recipeGrid');
+    grid.innerHTML = '<p style="text-align:center; width:100%;">Checking the pantry...</p>';
+
+    try {
+        
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=12&apiKey=${YOUR_API_KEY}`);
+        
+        if (!response.ok) throw new Error('API limit reached or wrong key');
+        
+        const data = await response.json();
+        displaySpoonResults(data.results);
+    } catch (error) {
+        console.error(error);
+        grid.innerHTML = '<p style="text-align:center; width:100%;">Error: Make sure your API key is correct for Spoonacular!</p>';
+    }
+}
+
+function displaySpoonResults(results) {
+    const grid = document.getElementById('recipeGrid');
+    grid.innerHTML = '';
+
+    if (!results || results.length === 0) {
+        grid.innerHTML = '<p>No recipes found.</p>';
+        return;
+    }
+
+    results.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        card.onclick = () => window.open(`https://spoonacular.com/recipes/${recipe.title}-${recipe.id}`, '_blank');
+
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${recipe.image}" alt="${recipe.title}">
+            </div>
+            <div class="card-body">
+                <span class="category-tag">Web Result</span>
+                <h3>${recipe.title}</h3>
+                <button class="btn btn-save" style="margin-top:10px;">Get Recipe ↗</button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
 }

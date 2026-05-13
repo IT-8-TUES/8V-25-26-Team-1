@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><title>Cookly | Home</title><link rel="stylesheet" href="style.css"></head>
+<head><title>Culinary Hub | Home</title><link rel="stylesheet" href="style.css"></head>
 <body>
     <nav>
-        <a href="index.html" class="home-logo">Cookly</a>
+        <a href="index.html" class="home-logo">Culinary Hub</a>
         <div class="nav-links">
             <a href="traditional.html">Traditional</a>
             <a href="vegan.html">Vegan</a>
@@ -13,6 +13,12 @@
         </div>
     </nav>
     <header><h1>All Recipes</h1><p>Explore our full kitchen collection</p></header>
+    <div class="search-section">
+       <div class="search-container">
+         <input type="text" id="externalSearch" placeholder="Search millions of recipes (e.g. Lasagna)...">
+         <button onclick="searchWebRecipes()" class="btn-search">Search Web</button>
+      </div>
+    </div>
     <div class="container"><div id="recipeGrid" class="recipe-grid"></div></div>
     <footer>
      <div class="footer-content">
