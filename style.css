@@ -85,11 +85,17 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color
     flex: 1; 
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .recipe-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    display: flex; 
+    flex-wrap: wrap; 
     gap: 35px; 
+    justify-content: center; 
     width: 100%;
+    padding: 20px 0;
 }
 
 .card { 
@@ -99,6 +105,11 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 320px; 
+    max-width: 380px; 
+    min-height: 400px; 
 }
 
 .card:hover { 
@@ -106,11 +117,31 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color
     box-shadow: 0 15px 45px rgba(62, 39, 35, 0.15);
 }
 
-.card-image { height: 220px; width: 100%; background-color: #eee; overflow: hidden; }
-.card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.card-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 .card:hover .card-image img { transform: scale(1.08); }
 
-.card-body { padding: 25px; }
+.card-body { 
+    padding: 25px; 
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.card h3 { 
+    margin: 10px 0; 
+    font-size: 1.3rem; 
+    line-height: 1.4;
+    word-wrap: break-word; 
+}
 .card-buttons {
     display: flex;
     gap: 10px;
