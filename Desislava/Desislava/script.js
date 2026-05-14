@@ -50,7 +50,6 @@ function displayRecipes(filter = 'all') {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => toggleRecipe(recipe.id);
-
        
         const isUserRecipe = recipe.id > 4;
 
@@ -90,31 +89,37 @@ function saveRecipe(id) {
 
 function addRecipe(event) {
     event.preventDefault();
+    console.log("Publish button clicked!");
 
+    const titleInput = document.getElementById('title');
+    const categoryInput = document.getElementById('category');
+    const instructionsInput = document.getElementById('instructions');
     const fileInput = document.getElementById('imageFile');
-    const file = fileInput.files[0];
+    const file = fileInput.files ? fileInput.files[0] : null;
     const reader = new FileReader();
 
     reader.onloadend = function() {
         const newRecipe = {
             id: Date.now(),
-            title: document.getElementById('title').value,
-            category: document.getElementById('category').value,
+            title: titleInput.value,
+            category: categoryInput.value,
             image: file ? reader.result : "https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000",
-            instructions: document.getElementById('instructions').value
+            instructions: instructionsInput.value
         };
 
-        let currentRecipes = JSON.parse(localStorage.getItem('myRecipes_v3')) || [];
-        currentRecipes.push(newRecipe);
-        localStorage.setItem('myRecipes_v3', JSON.stringify(currentRecipes));
+        recipes.push(newRecipe);
         
-        window.location.href = 'index.html'; 
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+        
+        console.log("Recipe saved successfully!");
+        
+        window.location.href = 'index.html';
     };
 
     if (file) {
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
     } else {
-        reader.onloadend(); 
+        reader.onloadend();
     }
 }
 
