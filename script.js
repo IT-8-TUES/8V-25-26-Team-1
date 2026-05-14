@@ -50,7 +50,6 @@ function displayRecipes(filter = 'all') {
         const card = document.createElement('div');
         card.className = 'card';
         card.onclick = () => toggleRecipe(recipe.id);
-
        
         const isUserRecipe = recipe.id > 4;
 
@@ -104,14 +103,15 @@ function addRecipe(event) {
             instructions: document.getElementById('instructions').value
         };
 
-        recipes.push(newRecipe);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+        let currentRecipes = JSON.parse(localStorage.getItem('myRecipes_v3')) || [];
+        currentRecipes.push(newRecipe);
+        localStorage.setItem('myRecipes_v3', JSON.stringify(currentRecipes));
         
-        window.location.href = 'index.html';
+        window.location.href = 'index.html'; 
     };
 
     if (file) {
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file); 
     } else {
         reader.onloadend(); 
     }
