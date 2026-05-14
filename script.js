@@ -90,16 +90,31 @@ function saveRecipe(id) {
 
 function addRecipe(event) {
     event.preventDefault();
-    const newRecipe = {
-        id: Date.now(),
-        title: document.getElementById('title').value,
-        category: document.getElementById('category').value,
-        image: document.getElementById('imageUrl').value || "https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000",
-        instructions: document.getElementById('instructions').value
+
+    const fileInput = document.getElementById('imageFile');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = function() {
+        const newRecipe = {
+            id: Date.now(),
+            title: document.getElementById('title').value,
+            category: document.getElementById('category').value,
+            image: file ? reader.result : "https://images.unsplash.com/photo-1495195129352-aed325a55b65?auto=format&fit=crop&q=80&w=1000",
+            instructions: document.getElementById('instructions').value
+        };
+
+        recipes.push(newRecipe);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+        
+        window.location.href = 'index.html';
     };
-    recipes.push(newRecipe);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes)); 
-    window.location.href = 'index.html'; 
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        reader.onloadend(); 
+    }
 }
 
 function deleteRecipe(id) {
