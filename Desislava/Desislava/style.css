@@ -87,7 +87,8 @@ h1 {
 }
 
 .container { 
-    max-width: 1200px; 
+    max-width: 1600px; 
+    width: 95%;        
     margin: 0 auto; 
     padding: 20px 20px 80px; 
     flex: 1; 
@@ -220,6 +221,7 @@ h1 {
     color: white;
 }
 
+
 .search-section {
     padding: 20px 5%;
     display: flex;
@@ -262,19 +264,33 @@ h1 {
 }
 
 .form-container { 
-    max-width: 2050px; 
+    max-width: 100%;
     margin: 40px auto; 
     background: var(--white); 
-    padding: 80px; 
+    padding: 60px; 
     border-radius: 24px; 
     box-shadow: var(--shadow); 
     border: 1px solid rgba(62, 39, 35, 0.02);
 }
 
 .form-container form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 24px;
+}
+
+@media (min-width: 850px) {
+    .form-container form {
+        grid-template-columns: 1fr 1fr; 
+    }
+    .form-container .full-width,
+    .form-container label[for="imageFile"],
+    .form-container input[type="file"],
+    .form-container label[for="instructions"],
+    .form-container textarea,
+    .btn-submit {
+        grid-column: span 2;
+    }
 }
 
 .form-container label {
@@ -283,14 +299,20 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--dark);
-    margin-bottom: -16px;
+    margin-bottom: -10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .form-container input[type="text"],
 .form-container select,
 .form-container textarea { 
     width: 100%; 
-    padding: 14px 18px; 
+    padding: 16px 20px; 
     border: 1.5px solid #e2e8f0; 
     border-radius: 12px; 
     background: #f8fafc; 
@@ -299,7 +321,6 @@ h1 {
     box-sizing: border-box; 
     transition: all 0.3s ease;
     outline: none;
-    margin-bottom: 0; 
 }
 
 .form-container input[type="text"]:focus,
@@ -322,7 +343,7 @@ h1 {
 
 .form-container input[type="file"] {
     width: 100%;
-    padding: 12px;
+    padding: 16px;
     border: 1.5px dashed #cbd5e1;
     border-radius: 12px;
     background: #f8fafc;
@@ -355,7 +376,7 @@ h1 {
 
 .form-container textarea {
     resize: vertical;
-    min-height: 140px;
+    min-height: 180px;
     line-height: 1.6;
 }
 
@@ -365,10 +386,10 @@ h1 {
 }
 
 .btn-submit {
-    margin-top: 10px;
+    margin-top: 15px;
     border-radius: 50px; 
-    padding: 16px 40px;
-    font-size: 1.05rem;
+    padding: 18px 40px;
+    font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     cursor: pointer;
