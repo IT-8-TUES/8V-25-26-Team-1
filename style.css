@@ -192,9 +192,21 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color
 .btn-save { background: transparent; color: var(--dark); border: 1px solid #ddd; margin-top: 10px; }
 .btn-save:hover { border-color: var(--primary); color: var(--primary); background: rgba(74, 93, 78, 0.05); }
 
-.btn-submit { background: var(--primary); color: white; padding: 18px; font-size: 1rem; }
-.btn-submit:hover { filter: brightness(1.2); transform: translateY(-2px); }
+.btn-submit {
+    border-radius: 50px; 
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--dark); 
+    color: var(--white);
+    border: none;
+}
 
+.btn-submit:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
 
 .form-container { 
     max-width: 600px; 
