@@ -24,10 +24,6 @@
     --light: #F0F4F4;    
 }
 
-* {
-    box-sizing: border-box;
-}
-
 body { 
     font-family: 'Poppins', sans-serif; 
     margin: 0; 
@@ -79,12 +75,7 @@ header {
     background: linear-gradient(rgba(74, 93, 78, 0.03), rgba(62, 39, 35, 0.03));
 }
 
-h1 { 
-    font-family: 'Playfair Display', serif; 
-    font-size: 3.5rem; 
-    margin: 0; 
-    color: var(--dark); 
-}
+h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; color: var(--dark); }
 
 .container { 
     max-width: 1200px; 
@@ -94,12 +85,10 @@ h1 {
 }
 
 .recipe-grid { 
-    display: flex; 
-    flex-wrap: wrap; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 35px; 
-    justify-content: center; 
     width: 100%;
-    padding: 20px 0;
 }
 
 .card { 
@@ -109,11 +98,6 @@ h1 {
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 320px; 
-    max-width: 380px; 
-    min-height: 400px; 
 }
 
 .card:hover { 
@@ -121,35 +105,33 @@ h1 {
     box-shadow: 0 15px 45px rgba(62, 39, 35, 0.15);
 }
 
-.card-image {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-}
-
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
+.card-image { height: 220px; width: 100%; background-color: #eee; overflow: hidden; }
+.card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
 .card:hover .card-image img { transform: scale(1.08); }
 
-.card-body { 
-    padding: 25px; 
+.card-body { padding: 25px; }
+
+.card-buttons {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.card h3 { 
-    margin: 10px 0; 
-    font-family: 'Playfair Display', serif; 
-    font-size: 1.5rem; 
-    color: var(--dark);
-    line-height: 1.4;
-    word-wrap: break-word; 
+.card-buttons .btn {
+    flex: 1;
+    padding: 10px;
+    font-size: 0.85rem;
+}
+
+.btn-delete {
+    background: transparent;
+    color: #a94442; 
+    border: 1px solid #a94442;
+}
+
+.btn-delete:hover {
+    background: #a94442;
+    color: white;
 }
 
 .category-tag { 
@@ -160,8 +142,9 @@ h1 {
     border: 1px solid var(--primary);
     padding: 2px 8px;
     border-radius: 4px;
-    align-self: flex-start;
 }
+
+.card h3 { margin: 10px 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--dark); }
 
 .recipe-detail {
     display: none;
@@ -173,124 +156,41 @@ h1 {
     color: #5d4037;
 }
 
-.card-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: auto; 
-    padding-top: 15px;
-}
+.btn { cursor: pointer; border: none; border-radius: 12px; padding: 12px 20px; font-weight: 600; width: 100%; transition: 0.3s; font-family: inherit; }
+.btn-save { background: transparent; color: var(--dark); border: 1px solid #ddd; margin-top: 10px; }
+.btn-save:hover { border-color: var(--primary); color: var(--primary); background: rgba(74, 93, 78, 0.05); }
 
-.btn { 
-    cursor: pointer; 
-    border: none; 
-    border-radius: 12px; 
-    padding: 12px 20px; 
-    font-weight: 600; 
-    width: 100%; 
-    transition: 0.3s; 
-    font-family: inherit; 
-}
-
-.btn-save { 
-    background: transparent; 
-    color: var(--dark); 
-    border: 1px solid #ddd; 
-}
-
-.btn-save:hover { 
-    border-color: var(--primary); 
-    color: var(--primary); 
-    background: rgba(74, 93, 78, 0.05); 
-}
-
-.btn-delete {
-    background: transparent;
-    color: #a94442; 
-    border: 1px solid #a94442;
-    border-radius: 12px;
-    padding: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-delete:hover {
-    background: #a94442;
-    color: white;
-}
-
-.search-section {
-    padding: 20px 5%;
-    display: flex;
-    justify-content: center;
-    background: rgba(74, 93, 78, 0.05); 
-}
-
-.search-container {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    max-width: 600px;
-}
-
-#externalSearch {
-    margin-bottom: 0; 
-    flex: 1;
-    width: 100%; 
-    padding: 15px; 
-    border: 1px solid #eee; 
-    border-radius: 12px; 
-    background: #fdfdfd; 
-    font-family: inherit; 
-    box-sizing: border-box; 
-}
-
-.btn-search {
-    background-color: var(--dark); 
-    color: var(--white);
-    border: none;
-    padding: 0 25px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.btn-search:hover {
-    background-color: var(--primary);
-}
+/* ==========================================================================
+   FORMS RESET - Delete your old .form-container and input rules, use ONLY this:
+   ========================================================================== */
 
 .form-container { 
-    width: 100%; 
-    max-width: 800px;
-    margin: 40px auto; 
+    width: 100% !important;
+    max-width: 950px !important; /* Cranked up to 950px so you can definitely see the change */
+    margin: 40px auto !important; 
     background: var(--white); 
     padding: 40px; 
     border-radius: 20px; 
     box-shadow: var(--shadow); 
-}
-
-.form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    box-sizing: border-box;
 }
 
 .form-container label {
+    display: block;
     font-size: 0.85rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--dark);
-    margin-bottom: -16px;
+    margin-bottom: 8px;
 }
 
-.form-container input[type="text"],
-.form-container select,
+.form-container input, 
+.form-container select, 
 .form-container textarea { 
-    width: 100%; 
-    padding: 14px 18px; 
+    width: 100% !important; 
+    padding: 15px 18px; 
+    margin-bottom: 25px; 
     border: 1.5px solid #e2e8f0; 
     border-radius: 12px; 
     background: #f8fafc; 
@@ -299,10 +199,9 @@ h1 {
     box-sizing: border-box; 
     transition: all 0.3s ease;
     outline: none;
-    margin-bottom: 0; 
 }
 
-.form-container input[type="text"]:focus,
+.form-container input:focus,
 .form-container select:focus,
 .form-container textarea:focus {
     border-color: var(--primary);
@@ -316,25 +215,13 @@ h1 {
     background-repeat: no-repeat;
     background-position: right 18px center;
     background-size: 16px;
-    padding-right: 45px;
     cursor: pointer;
 }
 
 .form-container input[type="file"] {
-    width: 100%;
     padding: 12px;
     border: 1.5px dashed #cbd5e1;
-    border-radius: 12px;
-    background: #f8fafc;
     cursor: pointer;
-    font-family: inherit;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-}
-
-.form-container input[type="file"]:hover {
-    background: #f1f5f9;
-    border-color: var(--primary);
 }
 
 .form-container input[type="file"]::file-selector-button {
@@ -346,40 +233,25 @@ h1 {
     font-weight: 600;
     cursor: pointer;
     margin-right: 15px;
-    transition: background 0.2s ease;
+    transition: 0.2s ease;
 }
 
-.form-container input[type="file"]::file-selector-button:hover {
-    background: var(--primary);
-}
-
-.form-container textarea {
-    resize: vertical;
-    min-height: 140px;
-    line-height: 1.6;
-}
-
-::placeholder {
-    color: #94a3b8;
-    opacity: 1;
-}
-
-.btn-submit {
-    margin-top: 10px;
-    border-radius: 50px; 
-    padding: 16px 40px;
-    font-size: 1rem;
+.btn-submit { 
+    width: 100%;
+    background: var(--dark); 
+    color: white; 
+    padding: 18px; 
+    font-size: 1.05rem; 
     font-weight: 600;
+    border: none;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: var(--dark); 
-    color: var(--white);
-    border: none;
 }
 
-.btn-submit:hover {
-    background-color: var(--primary);
-    transform: translateY(-2px);
+.btn-submit:hover { 
+    background: var(--primary); 
+    transform: translateY(-2px); 
 }
 
 footer {
@@ -406,3 +278,44 @@ footer {
 .footer-links a { color: var(--white); text-decoration: none; opacity: 0.7; transition: 0.3s; }
 .footer-links a:hover { opacity: 1; color: var(--accent); }
 .footer-bottom { text-align: center; margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; opacity: 0.5; }
+
+.search-section {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: center;
+    background: rgba(74, 93, 78, 0.05); 
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#externalSearch {
+    margin-bottom: 0; 
+    flex: 1;
+    width: 100%;
+    padding: 15px; 
+    border: 1px solid #eee; 
+    border-radius: 12px; 
+    background: #fdfdfd; 
+    font-family: inherit; 
+    box-sizing: border-box;
+}
+
+.btn-search {
+    background-color: var(--dark); 
+    color: var(--white);
+    border: none;
+    padding: 0 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-search:hover {
+    background-color: var(--primary); 
+}
